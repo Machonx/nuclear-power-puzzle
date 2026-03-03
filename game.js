@@ -4,68 +4,53 @@ const resetBtn = document.getElementById('resetBtn');
 const completionModal = document.getElementById('completionModal');
 const playAgainBtn = document.getElementById('playAgainBtn');
 
-let draggedPiece = null;
+let selectedPiece = null;
 let correctCount = 0;
 
-function initDragAndDrop() {
+function initClickGame() {
     pieces.forEach(piece => {
-        piece.addEventListener('dragstart', handleDragStart);
-        piece.addEventListener('dragend', handleDragEnd);
+        piece.addEventListener('click', handlePieceClick);
     });
 
     slots.forEach(slot => {
-        slot.addEventListener('dragover', handleDragOver);
-        slot.addEventListener('dragenter', handleDragEnter);
-        slot.addEventListener('dragleave', handleDragLeave);
-        slot.addEventListener('drop', handleDrop);
+        slot.addEventListener('click', handleSlotClick);
     });
 }
 
-function handleDragStart(e) {
-    draggedPiece = this;
-    this.style.opacity = '0.5';
-    e.dataTransfer.setData('text/plain', this.dataset.piece);
+function handlePieceClick() {
+    if (this.style.display === 'none') return;
+
+    pieces.forEach(p => p.classList.remove('selected'));
+    
+    if (selectedPiece === this) {
+        selectedPiece = null;
+    } else {
+        selectedPiece = this;
+        this.classList.add('selected');
+    }
 }
 
-function handleDragEnd() {
-    this.style.opacity = '1';
-    draggedPiece = null;
-}
+function handleSlotClick() {
+    if (!selectedPiece) return;
+    if (this.classList.contains('correct')) return;
 
-function handleDragOver(e) {
-    e.preventDefault();
-}
-
-function handleDragEnter(e) {
-    e.preventDefault();
-    this.classList.add('hover');
-}
-
-function handleDragLeave() {
-    this.classList.remove('hover');
-}
-
-function handleDrop(e) {
-    e.preventDefault();
-    this.classList.remove('hover');
-
-    const pieceName = e.dataTransfer.getData('text/plain');
+    const pieceName = selectedPiece.dataset.piece;
     const correctPiece = this.dataset.correct;
 
     if (pieceName === correctPiece) {
         const slotContent = this.querySelector('.slot-content');
-        slotContent.innerHTML = draggedPiece.innerHTML;
+        slotContent.innerHTML = selectedPiece.innerHTML;
         this.classList.add('correct');
-        draggedPiece.style.display = 'none';
+        selectedPiece.style.display = 'none';
+        selectedPiece.classList.remove('selected');
+        selectedPiece = null;
         correctCount++;
 
         checkCompletion();
     } else {
-        // 错误答案，弹回原位
-        draggedPiece.style.position = 'relative';
-        draggedPiece.style.animation = 'shake 0.5s ease-in-out';
+        this.classList.add('wrong');
         setTimeout(() => {
-            draggedPiece.style.animation = '';
+            this.classList.remove('wrong');
         }, 500);
     }
 }
@@ -81,17 +66,18 @@ function checkCompletion() {
 function resetGame() {
     pieces.forEach(piece => {
         piece.style.display = 'block';
+        piece.classList.remove('selected');
     });
 
     slots.forEach(slot => {
-        slot.classList.remove('correct');
+        slot.classList.remove('correct', 'wrong');
         slot.querySelector('.slot-content').innerHTML = '';
     });
 
     completionModal.classList.remove('show');
+    selectedPiece = null;
     correctCount = 0;
 
-    // 打乱拼图顺序
     shufflePieces();
 }
 
@@ -109,17 +95,5 @@ function shufflePieces() {
 resetBtn.addEventListener('click', resetGame);
 playAgainBtn.addEventListener('click', resetGame);
 
-// 初始化游戏
-initDragAndDrop();
+initClickGame();
 shufflePieces();
-
-// 添加摇晃动画
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-10px); }
-        75% { transform: translateX(10px); }
-    }
-`;
-document.head.appendChild(style);
