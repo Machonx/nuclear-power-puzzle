@@ -99,14 +99,21 @@ main {
     border: 3px solid #2E8B57;
     border-radius: 15px;
     padding: 15px;
-    cursor: grab;
+    cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
     position: relative;
 }
 
-.piece:active {
-    cursor: grabbing;
+.piece:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+}
+
+.piece.selected {
+    background-color: #e8f5e8;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.3);
     transform: scale(1.05);
 }
 
@@ -143,6 +150,12 @@ main {
     background-color: #e8f5e8;
     border-color: #4CAF50;
     border-style: solid;
+}
+
+.slot.wrong {
+    background-color: #ffebee;
+    border-color: #f44336;
+    animation: shake 0.5s ease-in-out;
 }
 
 .slot:hover {
@@ -346,4 +359,10 @@ main {
     .right-section h2 {
         font-size: 20px;
     }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
 }
