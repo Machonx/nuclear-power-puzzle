@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>核能发电流程拼图</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>核能发电流程拼图</h1>
+            <button id="resetBtn" class="reset-btn">重置</button>
+        </header>
+
+        <div class="hint-container">
+            <img src="压水式反应堆运作原理.jpg" alt="压水式反应堆运作原理" class="hint-image">
+        </div>
+
+        <main>
+            <div class="puzzle-container">
+                <div class="left-section">
+                    <h2>拼图块</h2>
+                    <div class="puzzle-pieces">
+                        <div class="piece" draggable="true" data-piece="核裂变反应堆">
+                            <img src="核裂变反应堆.jpg" alt="核裂变反应堆">
+                            <span>核裂变反应堆</span>
+                        </div>
+                        <div class="piece" draggable="true" data-piece="核燃料裂变">
+                            <img src="核燃料裂变.png" alt="核燃料裂变">
+                            <span>核燃料裂变</span>
+                        </div>
+                        <div class="piece" draggable="true" data-piece="产生热能">
+                            <img src="产生热能.png" alt="产生热能">
+                            <span>产生热能</span>
+                        </div>
+                        <div class="piece" draggable="true" data-piece="制造蒸汽">
+                            <img src="制造蒸汽.png" alt="制造蒸汽">
+                            <span>制造蒸汽</span>
+                        </div>
+                        <div class="piece" draggable="true" data-piece="推动涡轮机">
+                            <img src="推动涡轮机.png" alt="推动涡轮机">
+                            <span>推动涡轮机</span>
+                        </div>
+                        <div class="piece" draggable="true" data-piece="发电机发电">
+                            <img src="发电机发电.png" alt="发电机发电">
+                            <span>发电机发电</span>
+                        </div>
+                        <div class="piece" draggable="true" data-piece="电网输电">
+                            <img src="电网输电.png" alt="电网输电">
+                            <span>电网输电</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-section">
+                    <h2>步骤卡槽</h2>
+                    <div class="slots">
+                        <div class="slot" data-slot="1" data-correct="核裂变反应堆">
+                            <div class="slot-number">1</div>
+                            <div class="slot-content"></div>
+                            <div class="slot-label">步骤 1</div>
+                        </div>
+                        <div class="slot" data-slot="2" data-correct="核燃料裂变">
+                            <div class="slot-number">2</div>
+                            <div class="slot-content"></div>
+                            <div class="slot-label">步骤 2</div>
+                        </div>
+                        <div class="slot" data-slot="3" data-correct="产生热能">
+                            <div class="slot-number">3</div>
+                            <div class="slot-content"></div>
+                            <div class="slot-label">步骤 3</div>
+                        </div>
+                        <div class="slot" data-slot="4" data-correct="制造蒸汽">
+                            <div class="slot-number">4</div>
+                            <div class="slot-content"></div>
+                            <div class="slot-label">步骤 4</div>
+                        </div>
+                        <div class="slot" data-slot="5" data-correct="推动涡轮机">
+                            <div class="slot-number">5</div>
+                            <div class="slot-content"></div>
+                            <div class="slot-label">步骤 5</div>
+                        </div>
+                        <div class="slot" data-slot="6" data-correct="发电机发电">
+                            <div class="slot-number">6</div>
+                            <div class="slot-content"></div>
+                            <div class="slot-label">步骤 6</div>
+                        </div>
+                        <div class="slot" data-slot="7" data-correct="电网输电">
+                            <div class="slot-number">7</div>
+                            <div class="slot-content"></div>
+                            <div class="slot-label">步骤 7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div id="completionModal" class="modal">
+            <div class="modal-content">
+                <h2>🎉 恭喜通关！🎉</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <span class="step-number">1</span>
+                        <span class="step-text">核裂变反应堆：核反应堆是核能发电的核心设备，控制核裂变反应的进行</span>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">2</span>
+                        <span class="step-text">核燃料裂变：铀-235在反应堆中<span class="highlight">可控核裂变</span>，释放大量热能（非爆炸）</span>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">3</span>
+                        <span class="step-text">产生热能：裂变能量转化为高温热能</span>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">4</span>
+                        <span class="step-text">加热水生成蒸汽：热能将水变为高压蒸汽</span>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">5</span>
+                        <span class="step-text">蒸汽推动涡轮机：蒸汽带动涡轮高速旋转</span>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">6</span>
+                        <span class="step-text">涡轮机带动发电机：动能转化为电能</span>
+                    </div>
+                    <div class="process-step">
+                        <span class="step-number">7</span>
+                        <span class="step-text">输送电能到电网：电能升压后送入千家万户</span>
+                    </div>
+                </div>
+                <button id="playAgainBtn" class="play-again-btn">再玩一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
